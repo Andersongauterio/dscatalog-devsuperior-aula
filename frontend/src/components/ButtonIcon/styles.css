@@ -2,7 +2,8 @@
     display: flex;
 }
 
-.btn-container button{
+.btn-container button {
+    width: calc(100% - 70px);
     border-radius: 10px 0 0 10px;
 }
 
