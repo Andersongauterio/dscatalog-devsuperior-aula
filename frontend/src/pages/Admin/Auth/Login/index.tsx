@@ -3,7 +3,7 @@ import ButtonIcon from 'components/ButtonIcon';
 import { useForm } from 'react-hook-form';
 
 import './styles.css';
-import { requestBackednLogin } from 'util/request';
+import { getAuthData, requestBackednLogin, saveAuthData } from 'util/request';
 import { useState } from 'react';
 
 type FormData = {
@@ -23,6 +23,10 @@ const Login = () => {
 	const onSubmit = (formData: FormData) => {
 		requestBackednLogin(formData)
 			.then((response) => {
+				saveAuthData(response.data);
+				const token = getAuthData().access_token;
+				console.log(token);
+
 				setHasError(false);
 				console.log('SUCESSO', response);
 			})
