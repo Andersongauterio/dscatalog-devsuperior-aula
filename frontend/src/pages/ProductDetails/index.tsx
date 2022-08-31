@@ -4,7 +4,7 @@ import ProductPrice from 'components/ProductPrice';
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { Product } from 'types/product';
-import { BASE_URL } from 'util/request';
+import { BASE_URL } from 'util/requests';
 import ProductDetailsLoader from './ProductDetailsLoader';
 import ProductInfoLoader from './ProductInfoLoader';
 
