@@ -16,7 +16,7 @@ const Catalog = () => {
 	useEffect(() => {
 		const params: AxiosRequestConfig = {
 			method: 'GET',
-			url: "/products",
+			url: '/products',
 			params: {
 				page: 0,
 				size: 12,
