@@ -10,17 +10,16 @@ import { getTokenData } from 'util/auth';
 
 import './styles.css';
 
-type FormData = {
+type CredentialsFormDTO = {
 	username: string;
 	password: string;
 };
 
 type LocationState = {
 	from: string;
-}
+};
 
 const Login = () => {
-
 	const location = useLocation<LocationState>();
 
 	const { from } = location.state || { from: { pathname: '/admin' } };
@@ -33,11 +32,11 @@ const Login = () => {
 		register,
 		handleSubmit,
 		formState: { errors },
-	} = useForm<FormData>();
+	} = useForm<CredentialsFormDTO>();
 
 	const history = useHistory();
 
-	const onSubmit = (formData: FormData) => {
+	const onSubmit = (formData: CredentialsFormDTO) => {
 		requestBackednLogin(formData)
 			.then((response) => {
 				saveAuthData(response.data);
@@ -45,7 +44,7 @@ const Login = () => {
 				setAuthContextData({
 					authenticated: true,
 					tokenData: getTokenData(),
-				})
+				});
 				history.replace(from);
 			})
 			.catch((error) => {
@@ -70,7 +69,9 @@ const Login = () => {
 							},
 						})}
 						type="text"
-						className={`form-control base-input ${ errors.username ? 'is-invalid' : '' }`}
+						className={`form-control base-input ${
+							errors.username ? 'is-invalid' : ''
+						}`}
 						placeholder="Email"
 						name="username"
 					/>
@@ -84,7 +85,9 @@ const Login = () => {
 							required: 'Campo obrigatório',
 						})}
 						type="password"
-						className={`form-control base-input ${ errors.username ? 'is-invalid' : '' }`}
+						className={`form-control base-input ${
+							errors.username ? 'is-invalid' : ''
+						}`}
 						placeholder="Password"
 						name="password"
 					/>
