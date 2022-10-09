@@ -30,7 +30,7 @@ const ProductCrudCard = ({ product }: Props) => {
 				<button className="btn btn-outline-danger product-crud-card-button product-crud-card-button-first">
 					EXCLUIR
 				</button>
-				<Link to={`/</div>admin/products/${product.id}`}>
+				<Link to={`/admin/products/${product.id}`}>
 					<button className="btn btn-outline-secondary product-crud-card-button">
 						EDITAR
 					</button>
