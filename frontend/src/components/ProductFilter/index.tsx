@@ -52,6 +52,7 @@ const ProductFilter = () => {
 									{...field}
 									options={selectCategories}
 									isClearable
+									placeholder="Categoria"
 									classNamePrefix={'product-filter-select'}
 									getOptionLabel={(category: Category) => category.name}
 									getOptionValue={(category: Category) => String(category.id)}
