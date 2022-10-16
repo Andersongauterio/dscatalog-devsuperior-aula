@@ -1,6 +1,6 @@
 import { AxiosRequestConfig } from 'axios';
 import Pagination from 'components/Pagination';
-import ProductFilter from 'components/ProductFilter';
+import ProductFilter, { ProductFilterData } from 'components/ProductFilter';
 import ProductCrudCard from 'pages/Admin/Products/ProductCrudCard';
 import { useCallback } from 'react';
 import { useEffect, useState } from 'react';
@@ -13,6 +13,7 @@ import './styles.css';
 
 type ControlComponentsData = {
 	activePage: number;
+	filterData: ProductFilterData;
 };
 
 const List = () => {
@@ -21,10 +22,21 @@ const List = () => {
 	const [controlComponentsData, setControlComponentsData] =
 		useState<ControlComponentsData>({
 			activePage: 0,
+			filterData: { name: '', category: null },
 		});
 
 	const handlePageChange = (pageNumber: number) => {
-		setControlComponentsData({ activePage: pageNumber });
+		setControlComponentsData({
+			activePage: pageNumber,
+			filterData: controlComponentsData.filterData,
+		});
+	};
+
+	const handleSubmitFilter = (data: ProductFilterData) => {
+		setControlComponentsData({
+			activePage: 0,
+			filterData: data,
+		});
 	};
 
 	const getProducts = useCallback(() => {
@@ -34,6 +46,8 @@ const List = () => {
 			params: {
 				page: controlComponentsData.activePage,
 				size: 3,
+				name: controlComponentsData.filterData.name,
+				categoryId: controlComponentsData.filterData.category?.id,
 			},
 		};
 
@@ -54,7 +68,7 @@ const List = () => {
 						ADICIONAR
 					</button>
 				</Link>
-				<ProductFilter />
+				<ProductFilter onSubmitFilter={handleSubmitFilter} />
 			</div>
 			<div className="row">
 				{page?.content.map((product) => (
@@ -64,6 +78,7 @@ const List = () => {
 				))}
 			</div>
 			<Pagination
+				forcePage={page?.number}
 				pageCount={page ? page.totalPages : 0}
 				range={3}
 				onChange={handlePageChange}
