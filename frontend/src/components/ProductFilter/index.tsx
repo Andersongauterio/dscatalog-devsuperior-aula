@@ -18,7 +18,7 @@ const ProductFilter = () => {
 	const { register, handleSubmit, control } = useForm<ProductFilterData>();
 
 	const onSubmit = (formData: ProductFilterData) => {
-		console.log("Enviou", formData);
+		console.log('Enviou', formData);
 	};
 
 	useEffect(() => {
@@ -34,8 +34,8 @@ const ProductFilter = () => {
 					<input
 						{...register('name')}
 						type="text"
-						className="form-control base-input"
-						placeholder="Nome do Produto"
+						className="form-control"
+						placeholder="Nome do produto"
 						name="name"
 					/>
 					<button className="product-filter-search-icon">
@@ -53,14 +53,16 @@ const ProductFilter = () => {
 									options={selectCategories}
 									isClearable
 									placeholder="Categoria"
-									classNamePrefix={'product-filter-select'}
+									classNamePrefix="product-filter-select"
 									getOptionLabel={(category: Category) => category.name}
 									getOptionValue={(category: Category) => String(category.id)}
 								/>
 							)}
 						/>
 					</div>
-					<button className="btn btn-outline-secondary btn-product-filter-clear">LIMPAR <span className="btn-product-filter-word">FILTRO</span></button>
+					<button className="btn btn-outline-secondary btn-product-filter-clear">
+						LIMPAR<span className="btn-product-filter-word"> FILTRO</span>
+					</button>
 				</div>
 			</form>
 		</div>
