@@ -1,6 +1,6 @@
 import { AxiosRequestConfig } from 'axios';
 import Pagination from 'components/Pagination';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Product } from 'types/product';
 import { SpringPage } from 'types/vendor/spring';
@@ -20,7 +20,7 @@ const List = () => {
 			activePage: 0,
 		});
 
-	useEffect(() => {
+	const getProducts = useCallback(() => {
 		const config: AxiosRequestConfig = {
 			method: 'GET',
 			url: '/products',
@@ -34,6 +34,10 @@ const List = () => {
 			setPage(response.data);
 		});
 	}, [controlComponentsData]);
+
+	useEffect(() => {
+		getProducts();
+	}, [getProducts]);
 
 	const handlePageChange = (pageNumber: number) => {
 		setControlComponentsData({ activePage: pageNumber });
