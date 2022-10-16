@@ -1,12 +1,14 @@
 import { AxiosRequestConfig } from 'axios';
 import Pagination from 'components/Pagination';
 import ProductFilter from 'components/ProductFilter';
-import { useCallback, useEffect, useState } from 'react';
+import ProductCrudCard from 'pages/Admin/Products/ProductCrudCard';
+import { useCallback } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Product } from 'types/product';
 import { SpringPage } from 'types/vendor/spring';
 import { requestBackend } from 'util/requests';
-import ProductCrudCard from '../ProductCrudCard';
+
 import './styles.css';
 
 type ControlComponentsData = {
@@ -20,6 +22,10 @@ const List = () => {
 		useState<ControlComponentsData>({
 			activePage: 0,
 		});
+
+	const handlePageChange = (pageNumber: number) => {
+		setControlComponentsData({ activePage: pageNumber });
+	};
 
 	const getProducts = useCallback(() => {
 		const config: AxiosRequestConfig = {
@@ -40,10 +46,6 @@ const List = () => {
 		getProducts();
 	}, [getProducts]);
 
-	const handlePageChange = (pageNumber: number) => {
-		setControlComponentsData({ activePage: pageNumber });
-	};
-
 	return (
 		<div className="product-crud-container">
 			<div className="product-crud-bar-container">
@@ -57,7 +59,7 @@ const List = () => {
 			<div className="row">
 				{page?.content.map((product) => (
 					<div key={product.id} className="col-sm-6 col-md-12">
-						<ProductCrudCard product={product} onDelete={() => {}} />
+						<ProductCrudCard product={product} onDelete={getProducts} />
 					</div>
 				))}
 			</div>
