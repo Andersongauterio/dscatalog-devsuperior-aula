@@ -1,23 +1,24 @@
 import { render, screen, waitFor } from "@testing-library/react";
-import { Router } from "react-router-dom";
-import history from 'util/history';
 import Catalog from "..";
+import history from 'util/history';
+import { Router } from 'react-router-dom';
+import { server } from './fixtures';
 
+beforeAll(() => server.listen());
+afterEach(() => server.resetHandlers());
+afterAll(() => server.close());
 
 test('should render Catalog with products', async () => {
-    const text = "Fazer login";
+
     render(
         <Router history={history}>
-            <Catalog />
+             <Catalog />
         </Router>
     );
 
-    //screen.debug();
-
-    expect(screen.getByText("Catálogo de produtos")).toBeInTheDocument();
+    expect(screen.getByText('Catálogo de produtos')).toBeInTheDocument();
 
     await waitFor(() => {
-        expect(screen.getByText("Smart TV")).toBeInTheDocument();
-    })
-    
+        expect(screen.getByText('Smart TV')).toBeInTheDocument();
+    });
 });
