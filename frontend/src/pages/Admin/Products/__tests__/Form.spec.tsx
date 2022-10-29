@@ -23,5 +23,11 @@ describe('Product form create tests', () => {
                 <Form />
             </Router>
         );
+
+        const nameInput = screen.getByTestId("name");
+        const priceInput = screen.getByTestId("price");
+        const imgUrlInput = screen.getByTestId("imgUrl");
+        const descriptionInput = screen.getByTestId("description");
+        const categoriesInput = screen.getByLabelText("Categorias");
     });
 });
