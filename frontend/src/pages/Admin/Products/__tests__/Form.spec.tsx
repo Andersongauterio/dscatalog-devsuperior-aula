@@ -47,10 +47,14 @@ describe('Product form create tests', () => {
         userEvent.type(imgUrlInput, 'https://raw.githubusercontent.com/devsuperior/dscatalog-resources/master/backend/img/7-big.jpg');
         userEvent.type(descriptionInput, 'Computator muito bom');
 
+        userEvent.click(submitButton);
+
         await waitFor(() => {
             const toastElement = screen.getByText("Produto cadastrado com sucesso");
             expect(toastElement).toBeInTheDocument();
         });
+
+       expect(history.location.pathname).toEqual('/admin/products');
 
     });
 });
